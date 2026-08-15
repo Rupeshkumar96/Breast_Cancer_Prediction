@@ -400,19 +400,17 @@ Once deployed, add your live application URL here.
 
 ## 📸 14. Screenshots
 
-Add screenshots of your application here.
-
 ### 🏠 Home Page
 
-![App Screenshot](screenshots/Home.png)
+![Home Page](screenshots/Home.png)
 
 ### 📝 Prediction Form
 
-![App Screenshot](screenshots/Prediction_form.png)
+![Prediction Form](screenshots/Prediction_form.png)
 
 ### 📊 Prediction Result
 
-![App Screenshot](screenshots/Result.png)
+![Prediction Result](screenshots/Result.png)
 
 ### File Structure
 ```text
