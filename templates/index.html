@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Breast Cancer Prediction</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#db2777',
+                        secondary: '#7c3aed'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">
+                    🩺
+                </div>
+
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800">
+                        BreastCare AI
+                    </h1>
+                    <p class="text-xs text-gray-500">
+                        ML Based Prediction System
+                    </p>
+                </div>
+            </div>
+
+            <span class="hidden sm:block text-sm text-gray-500">
+                Random Forest Classifier
+            </span>
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-10">
+
+        <!-- Header -->
+        <div class="text-center mb-10">
+
+            <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-700 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                <span>🤖</span>
+                Machine Learning Prediction
+            </div>
+
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+                Breast Cancer
+                <span class="text-pink-600">Prediction</span>
+            </h2>
+
+            <p class="max-w-2xl mx-auto text-gray-600">
+                Enter the required medical features below to get a prediction
+                from our Random Forest machine learning model.
+            </p>
+        </div>
+
+
+        <!-- Prediction Card -->
+        <div class="max-w-4xl mx-auto">
+
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+
+                <!-- Card Header -->
+                <div class="bg-gradient-to-r from-pink-600 to-purple-600 px-8 py-6 text-white">
+
+                    <h3 class="text-2xl font-bold">
+                        Patient Information
+                    </h3>
+
+                    <p class="text-pink-100 mt-1">
+                        Enter the five required tumor measurements
+                    </p>
+
+                </div>
+
+
+                <!-- Form -->
+                <form action="/predict" method="POST" class="p-8">
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Radius Mean -->
+                        <div>
+                            <label for="query1"
+                                   class="block text-sm font-semibold text-gray-700 mb-2">
+                                Radius Mean
+                            </label>
+
+                            <input
+                                type="number"
+                                step="any"
+                                id="query1"
+                                name="query1"
+                                value="{{ query1|default('') }}"
+                                placeholder="Example: 14.2"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300
+                                       focus:ring-2 focus:ring-pink-500 focus:border-pink-500
+                                       outline-none transition">
+                        </div>
+
+
+                        <!-- Texture Mean -->
+                        <div>
+                            <label for="query2"
+                                   class="block text-sm font-semibold text-gray-700 mb-2">
+                                Texture Mean
+                            </label>
+
+                            <input
+                                type="number"
+                                step="any"
+                                id="query2"
+                                name="query2"
+                                value="{{ query2|default('') }}"
+                                placeholder="Example: 19.5"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300
+                                       focus:ring-2 focus:ring-pink-500 focus:border-pink-500
+                                       outline-none transition">
+                        </div>
+
+
+                        <!-- Perimeter Mean -->
+                        <div>
+                            <label for="query3"
+                                   class="block text-sm font-semibold text-gray-700 mb-2">
+                                Perimeter Mean
+                            </label>
+
+                            <input
+                                type="number"
+                                step="any"
+                                id="query3"
+                                name="query3"
+                                value="{{ query3|default('') }}"
+                                placeholder="Example: 92.1"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300
+                                       focus:ring-2 focus:ring-pink-500 focus:border-pink-500
+                                       outline-none transition">
+                        </div>
+
+
+                        <!-- Smoothness Mean -->
+                        <div>
+                            <label for="query4"
+                                   class="block text-sm font-semibold text-gray-700 mb-2">
+                                Smoothness Mean
+                            </label>
+
+                            <input
+                                type="number"
+                                step="any"
+                                id="query4"
+                                name="query4"
+                                value="{{ query4|default('') }}"
+                                placeholder="Example: 0.096"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300
+                                       focus:ring-2 focus:ring-pink-500 focus:border-pink-500
+                                       outline-none transition">
+                        </div>
+
+
+                        <!-- Compactness Mean -->
+                        <div class="md:col-span-2">
+                            <label for="query5"
+                                   class="block text-sm font-semibold text-gray-700 mb-2">
+                                Compactness Mean
+                            </label>
+
+                            <input
+                                type="number"
+                                step="any"
+                                id="query5"
+                                name="query5"
+                                value="{{ query5|default('') }}"
+                                placeholder="Example: 0.104"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300
+                                       focus:ring-2 focus:ring-pink-500 focus:border-pink-500
+                                       outline-none transition">
+                        </div>
+
+                    </div>
+
+
+                    <!-- Info -->
+                    <div class="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-xl">
+
+                        <div class="flex gap-3">
+
+                            <div class="text-blue-600 text-xl">
+                                ℹ️
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-blue-800">
+                                    Important
+                                </h4>
+
+                                <p class="text-sm text-blue-700 mt-1">
+                                    Please enter numerical values for all five
+                                    features. The model will use these values
+                                    to generate a prediction.
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Submit Button -->
+                    <button
+                        type="submit"
+                        class="w-full mt-8 bg-gradient-to-r from-pink-600 to-purple-600
+                               hover:from-pink-700 hover:to-purple-700
+                               text-white font-bold py-4 px-6 rounded-xl
+                               shadow-lg hover:shadow-xl
+                               transform hover:-translate-y-0.5
+                               transition duration-200">
+
+                        🔍 Predict Breast Cancer
+
+                    </button>
+
+                </form>
+
+
+                <!-- Result -->
+                {% if query %}
+
+                <div class="px-8 pb-8">
+
+                    <div class="border-t border-gray-200 pt-8">
+
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">
+                            Prediction Result
+                        </h3>
+
+                        {% if "not diagnosed" in query|lower %}
+
+                        <!-- Benign Result -->
+                        <div class="bg-green-50 border border-green-200 rounded-2xl p-6">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-12 h-12 bg-green-100 rounded-full
+                                            flex items-center justify-center
+                                            text-2xl">
+                                    ✓
+                                </div>
+
+                                <div>
+                                    <h4 class="text-lg font-bold text-green-800">
+                                        Prediction: Benign
+                                    </h4>
+
+                                    <p class="text-green-700 mt-1">
+                                        The model predicts that the patient is
+                                        not diagnosed with breast cancer.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% else %}
+
+                        <!-- Malignant Result -->
+                        <div class="bg-red-50 border border-red-200 rounded-2xl p-6">
+
+                            <div class="flex items-start gap-4">
+
+                                <div class="w-12 h-12 bg-red-100 rounded-full
+                                            flex items-center justify-center
+                                            text-2xl">
+                                </div>
+
+                                <div>
+                                    <h4 class="text-lg font-bold text-red-800">
+                                        Prediction: Malignant
+                                    </h4>
+
+                                    <p class="text-red-700 mt-1">
+                                        The model predicts a possible breast
+                                        cancer diagnosis.
+                                    </p>
+
+                                    <p class="mt-3 text-red-800 font-semibold">
+                                        {{ query.split('\n')[1] if '\n' in query else '' }}
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Disclaimer -->
+            <div class="text-center mt-6">
+
+                <p class="text-xs text-gray-500">
+                    This application is for educational and research
+                    purposes only. It is not a substitute for professional
+                    medical diagnosis.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="mt-10 py-6 text-center text-sm text-gray-500">
+        <p>
+            BreastCare AI • Machine Learning Project
+        </p>
+    </footer>
+
+</body>
+</html>
