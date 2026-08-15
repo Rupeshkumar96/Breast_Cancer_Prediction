@@ -402,15 +402,15 @@ Once deployed, add your live application URL here.
 
 ### 🏠 Home Page
 
-![Home Page](screenshots/Home.png)
+<img src="./screenshots/Home.png" alt="Home Page" width="800">
 
 ### 📝 Prediction Form
 
-![Prediction Form](screenshots/Prediction_form.png)
+<img src="./screenshots/Prediction_form.png" alt="Prediction Form" width="800">
 
 ### 📊 Prediction Result
 
-![Prediction Result](screenshots/Result.png)
+<img src="./screenshots/Result.png" alt="Prediction Result" width="800">
 
 ### File Structure
 ```text
