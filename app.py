@@ -74,11 +74,17 @@ def home():
 # Prediction
 # -----------------------------
 
-@app.route("/predict", methods=["POST"])
+@app.route("/predict", methods=["GET", "POST"])
 def cancerpredict():
 
-    try:
+    if request.method == "GET":
+        return render_template(
+            "index.html",
+            query="",
+            accuracy=accuracy * 100
+        )
 
+    try:
         input_query1 = float(request.form["query1"])
         input_query2 = float(request.form["query2"])
         input_query3 = float(request.form["query3"])
@@ -99,21 +105,15 @@ def cancerpredict():
         )
 
         prediction = model.predict(new_df)[0]
-
         probability = model.predict_proba(new_df)[0][1]
 
         if prediction == 1:
-
             output = "The model predicts a possible malignant result."
-
             output1 = "Confidence: {:.2f}%".format(
                 probability * 100
             )
-
         else:
-
             output = "The model predicts a benign result."
-
             output1 = "Confidence: {:.2f}%".format(
                 (1 - probability) * 100
             )
@@ -130,7 +130,6 @@ def cancerpredict():
         )
 
     except (ValueError, KeyError):
-
         return render_template(
             "index.html",
             query="Please enter valid numerical values.",
